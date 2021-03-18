@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
-
+const cors = require('cors');
 
 // Constants
 const port = 4000;
@@ -14,6 +14,7 @@ const app = express();
 
 // Configs
 app.use(bodyParser.json());
+app.use(cors());
 
 
 // Routes
