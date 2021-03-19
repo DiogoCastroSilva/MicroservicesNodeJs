@@ -12,12 +12,12 @@ const PostList = () => {
     }, []);
 
     const fetchPosts = async () => {
-        const res = await axios.get('http://localhost:4000/posts');
+        const res = await axios.get('http://localhost:4002/posts');
 
         setPosts(res.data);
     };
 
-    const renderedPosts = Object.values(posts).map(({ id, title }) => (
+    const renderedPosts = Object.values(posts).map(({ id, title, comments }) => (
         <div
             className="card"
             style={{ width: '30%', marginBottom: '20px' }}
@@ -25,7 +25,7 @@ const PostList = () => {
         >
             <div className="card-body">
                 <h3>{title}</h3>
-                <CommentList postId={id} />
+                <CommentList comments={comments} />
                 <CommentCreate postId={id} />
             </div>
         </div>

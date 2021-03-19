@@ -17,8 +17,11 @@ app.use(bodyParser.json());
 app.post('/events', (req, res) => {
     const event = req.body;
 
+    // Post service
     axios.post('http://localhost:4000/events', event);
+    // Comments service
     axios.post('http://localhost:4001/events', event);
+    // Query service
     axios.post('http://localhost:4002/events', event);
 
     res.send({ status: 'ok' });
