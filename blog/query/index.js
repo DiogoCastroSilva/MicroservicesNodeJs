@@ -1,3 +1,4 @@
+// Libraries
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -33,13 +34,24 @@ app.post('/events', (req, res) => {
     }
 
     if (type === 'CommentCreated') {
-        const { id, content, postId } = data;
-
+        const { id, content, postId, status } = data;
         const post = posts[postId];
+
         post.comments.push({
             id,
-            content
+            content,
+            status
         });
+    }
+
+    if (type === 'CommentUpdated') {
+        const { postId, id, status, content } = data;
+
+        const post = posts[postId];
+        const comment = post.comments.find(c => c.id === id);
+
+        comment.status = status;
+        comment.content = content;
     }
 
     res.send({});
@@ -47,5 +59,5 @@ app.post('/events', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Query service listening at port: ${port}`);
+    console.log(`Query service listening on port: ${port}`);
 });
