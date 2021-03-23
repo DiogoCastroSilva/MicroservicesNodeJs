@@ -41,13 +41,18 @@ app.post('/posts/:id/comments', async (req, res) => {
 
     commentsByPostId[postId] = comments;
 
-    await axios.post('http://localhost:4005/events', {
-        type: 'CommentCreated',
-        data: {
-           postId,
-           ...newComment,
-        }
-    });
+    try {
+        await axios.post(`${process.env.EVENT_BUS_URI}/events`, {
+            type: 'CommentCreated',
+            data: {
+               postId,
+               ...newComment,
+            }
+        });
+    } catch (err) {
+        console.error(err);
+    }
+
 
     res.status(201).send(comments);
 });
@@ -64,13 +69,18 @@ app.post('/events', async (req, res) => {
         const comment = comments.find(c => c.id === id);
         comment.status = status;
 
-        await axios.post('http://localhost:4005/events', {
-            type: 'CommentUpdated',
-            data: {
-                ...comment,
-                postId
-            }
-        });
+        try {
+            await axios.post(`${process.env.EVENT_BUS_URI}/events`, {
+                type: 'CommentUpdated',
+                data: {
+                    ...comment,
+                    postId
+                }
+            });
+        } catch (err) {
+            console.error(err);
+        }
+
     }
 
     res.send({});

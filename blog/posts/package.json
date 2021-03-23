@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "docker:build": "docker build -t posts-service .",
+    "docker:container": "docker run -it -p 4000:4000 posts-service"
   },
   "author": "Diogo silva",
   "license": "ISC",

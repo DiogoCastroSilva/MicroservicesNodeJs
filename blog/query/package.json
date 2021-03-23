@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "docker:build": "docker build -t query-service .",
+    "docker:container": "docker run -it -p 4002:4002 query-service"
   },
   "keywords": [],
   "author": "",

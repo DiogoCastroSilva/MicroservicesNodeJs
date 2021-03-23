@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "docker:build": "docker build -t comments-service .",
+    "docker:container": "docker run -it -p 4001:4001 comments-service"
   },
   "keywords": [],
   "author": "",

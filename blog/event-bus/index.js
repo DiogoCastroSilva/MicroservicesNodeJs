@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const cors = require('cors');
 
 // Constants
 const port = 4005;
@@ -12,6 +13,7 @@ const app = express();
 
 // Configs
 app.use(bodyParser.json());
+app.use(cors());
 
 
 // Routes
@@ -22,19 +24,19 @@ app.post('/events', (req, res) => {
     events.push(event);
 
     // Posts service
-    axios.post('http://localhost:4000/events', event).catch((err) => {
+    axios.post(`${process.env.POSTS_URI}/events`, event).catch((err) => {
         console.log(err.message);
     });
     // Comments service
-    axios.post('http://localhost:4001/events', event).catch((err) => {
+    axios.post(`${process.env.COMMENTS_URI}/events`, event).catch((err) => {
         console.log(err.message);
     });
     // Query service
-    axios.post('http://localhost:4002/events', event).catch((err) => {
+    axios.post(`${process.env.QUERY_URI}/events`, event).catch((err) => {
         console.log(err.message);
     });
     // Moderation service
-    axios.post('http://localhost:4003/events', event).catch((err) => {
+    axios.post(`${process.env.MODERATION_URI}/events`, event).catch((err) => {
         console.log(err.message);
     });
 
