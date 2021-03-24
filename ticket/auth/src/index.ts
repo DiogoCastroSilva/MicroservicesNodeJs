@@ -15,7 +15,7 @@ import { DatabaseConnectionError } from './errors/database-connection-error';
 
 // Constants
 dotenv.config();
-const port = process.env.port;
+const port = process.env.PORT;
 
 const app = express();
 
