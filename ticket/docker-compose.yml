@@ -6,3 +6,32 @@ services:
       - '3000:3000'
     volumes:
       - ./auth:/usr/src
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=user
+      - MONGO_INITDB_ROOT_PASSWORD=user
+      - MONGO_INITDB_DATABASE=project
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=user
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=user
+      - ME_CONFIG_BASICAUTH_USERNAME=user
+      - ME_CONFIG_BASICAUTH_PASSWORD=user
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:8081"
