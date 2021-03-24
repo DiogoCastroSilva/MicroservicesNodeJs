@@ -33,7 +33,7 @@ app.use(errorHandler);
 // Start db connection
 const startDB = async() => {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/auth', {
+        await mongoose.connect('mongodb://mongodb:27017/auth', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true

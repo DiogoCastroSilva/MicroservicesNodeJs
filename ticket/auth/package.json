@@ -4,7 +4,9 @@
   "description": "Micro-service to deal with the authentication logic.",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev --poll src/index.ts",
+    "start": "node build/index.js",
+    "dev": "ts-node-dev --poll src/index.ts",
+    "build": "tsc",
     "docker:build": "docker build -t auth .",
     "docker:container": "docker run -it -p 3000:3000 auth"
   },
