@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import { json } from 'body-parser';
 import 'express-async-errors';
@@ -13,7 +14,8 @@ import { NotFoundError } from './errors/not-found-error';
 import { DatabaseConnectionError } from './errors/database-connection-error';
 
 // Constants
-const port = 3000;
+dotenv.config();
+const port = process.env.port;
 
 const app = express();
 
@@ -33,7 +35,7 @@ app.use(errorHandler);
 // Start db connection
 const startDB = async() => {
     try {
-        await mongoose.connect('mongodb://mongodb:27017/auth', {
+        await mongoose.connect(`${process.env.DB_CONNECTION}/${process.env.DB}`, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
