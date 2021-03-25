@@ -40,4 +40,34 @@ describe('Signup tests', () => {
             })
             .expect(400);
     });
+
+    it('should not allow duplicate emails', async () => {
+        await request(app)
+            .post(`${baseURI}/signup`)
+            .send({
+                email,
+                password
+            })
+            .expect(201);
+
+        await request(app)
+            .post(`${baseURI}/signup`)
+            .send({
+                email,
+                password
+            })
+            .expect(400);
+    });
+
+    it('should set a cookie after successfully signup', async () => {
+        const response = await request(app)
+            .post(`${baseURI}/signup`)
+            .send({
+                email,
+                password
+            })
+            .expect(201);
+
+        expect(response.get('Set-Cookie')).toBeDefined();
+    });
 });

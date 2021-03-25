@@ -8,7 +8,6 @@ let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
     process.env.PORT = '3000';
-    process.env.NODE_ENV = 'development';
     process.env.JWT_PRIVATE_KEY = 'test-secret';
 
     mongo = new MongoMemoryServer();
