@@ -48,23 +48,23 @@ This is a complex application to understand how to create micro-services and how
 
 ### Services
 
-#### [Auth](/auth)
+#### [Auth](ticket/auth)
 
 Will represent everything related to user sign-up, sign-in and sign-out.
 
-#### [Tickets](/tickets)
+#### [Tickets](/ticket/tickets)
 
 Will represent everything related to creating and editing tickets.
 
-#### [Orders](/orders)
+#### [Orders](/ticket/orders)
 
 Will represent everything related to creating and editing orders.
 
-#### [Expiration](/expiration)
+#### [Expiration](/ticket/expiration)
 
 Will watch for orders being created and will canceled them after 15 minutes.
 
-#### [Payments](/payments)
+#### [Payments](/ticket/payments)
 
 Will represent credit card payments. Cancels orders if payment fails, completes if payment succeeds.
 
