@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import { BadRequestError } from '../errors/bad-request-error';
 import { validateRequest } from '../middlewares/validate-request';
 import User from '../models/user';
+import { Password } from '../services/password';
 
 const router = Router();
 
@@ -40,8 +41,9 @@ router.post('/signup',
             password
         });
 
-        console.log('User created');
-
+        console.log('User created', user.email);
+        console.log('User sign in', user.email);
+        
         // Generate JWT
         const userJWT = jwt.sign(
             {
@@ -73,6 +75,36 @@ router.post('/signin',
     validateRequest,
     async (req: Request, res: Response) => {
         const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            throw new BadRequestError('Invalid credentials');
+        }
+
+        const isPasswordAMatch = await Password.compare(user.password, password);
+
+        if (!isPasswordAMatch) {
+            throw new BadRequestError('Invalid credentials');
+        }
+
+          // Generate JWT
+          const userJWT = jwt.sign(
+            {
+                id: user.id,
+                email: user.email
+            },
+            process.env.JWT_PRIVATE_KEY as string
+        );
+
+        console.log('User sign in', user.email);
+
+        // Add JWT to session header
+        req.session = {
+            jwt: userJWT
+        };
+
+        res.status(200).send(user);
     }
 );
 
