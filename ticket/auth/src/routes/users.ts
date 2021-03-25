@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '../errors/bad-request-error';
+import { currentUser } from '../middlewares/current-user';
 import { validateRequest } from '../middlewares/validate-request';
 import User from '../models/user';
 import { Password } from '../services/password';
@@ -10,24 +11,12 @@ import { Password } from '../services/password';
 const router = Router();
 
 // GET
-router.get('/currentuser', async (req, res) => {
-    const { session } = req;
-    if (!session || !session.jwt) {
-        return res.send({ currentUser: null });
+router.get('/currentuser',
+    currentUser,
+    (req, res) => {
+        res.send({ currentUser: req.currentUser || null });
     }
-
-    try {
-        const payload = jwt.verify(
-            session.jwt,
-            process.env.JWT_PRIVATE_KEY as string
-        );
-
-        return res.send({ currentUser: payload });
-    } catch (err) {
-        return res.send({ currentUser: null });
-    }
-
-});
+);
 
 
 // POST
