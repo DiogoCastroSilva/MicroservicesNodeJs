@@ -26,7 +26,7 @@ app.use(cookieSession({
     // Disable encryption
     signed: false,
     // cookie is only to be sent over HTTPS
-    secure: true
+    secure: process.env.NODE_ENV === 'production'
 }));
 
 // Routes

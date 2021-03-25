@@ -10,7 +10,22 @@ import { Password } from '../services/password';
 const router = Router();
 
 // GET
-router.get('/currentuser', (req, res) => {
+router.get('/currentuser', async (req, res) => {
+    const { session } = req;
+    if (!session || !session.jwt) {
+        return res.send({ currentUser: null });
+    }
+
+    try {
+        const payload = jwt.verify(
+            session.jwt,
+            process.env.JWT_PRIVATE_KEY as string
+        );
+
+        return res.send({ currentUser: payload });
+    } catch (err) {
+        return res.send({ currentUser: null });
+    }
 
 });
 
@@ -43,7 +58,7 @@ router.post('/signup',
 
         console.log('User created', user.email);
         console.log('User sign in', user.email);
-        
+
         // Generate JWT
         const userJWT = jwt.sign(
             {
