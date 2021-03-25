@@ -52,19 +52,19 @@ This is a complex application to understand how to create micro-services and how
 
 Will represent everything related to user sign-up, sign-in and sign-out.
 
-#### [Tickets](/ticket/tickets)
+#### [Tickets](/tickets)
 
 Will represent everything related to creating and editing tickets.
 
-#### [Orders](/ticket/orders)
+#### [Orders](/orders)
 
 Will represent everything related to creating and editing orders.
 
-#### [Expiration](/ticket/expiration)
+#### [Expiration](/expiration)
 
 Will watch for orders being created and will canceled them after 15 minutes.
 
-#### [Payments](/ticket/payments)
+#### [Payments](/payments)
 
 Will represent credit card payments. Cancels orders if payment fails, completes if payment succeeds.
 
