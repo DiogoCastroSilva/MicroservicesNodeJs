@@ -124,7 +124,9 @@ router.post('/signin',
 );
 
 router.post('/signout', (req, res) => {
+    req.session = null;
 
+    res.send({});
 });
 
 
