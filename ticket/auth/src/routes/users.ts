@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
-
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
+
 import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import User from '../models/user';
@@ -45,6 +46,20 @@ router.post('/signup',
         });
 
         console.log('User created');
+
+        // Generate JWT
+        const userJWT = jwt.sign(
+            {
+                id: user.id,
+                email: user.email
+            },
+            process.env.JWT_PRIVATE_KEY as string
+        );
+
+        // Add JWT to session header
+        req.session = {
+            jwt: userJWT
+        };
 
         res.status(201).send(user);
     });
