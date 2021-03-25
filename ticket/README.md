@@ -48,7 +48,7 @@ This is a complex application to understand how to create micro-services and how
 
 ### Services
 
-#### [Auth](ticket/auth)
+#### [Auth](/auth)
 
 Will represent everything related to user sign-up, sign-in and sign-out.
 
