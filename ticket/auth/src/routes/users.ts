@@ -8,6 +8,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import User from '../models/user';
 import { Password } from '../services/password';
 
+
 const router = Router();
 
 // GET
