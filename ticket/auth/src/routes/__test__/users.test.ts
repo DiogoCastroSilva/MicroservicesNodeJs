@@ -144,3 +144,31 @@ describe('Signout tests', () => {
         expect(response.get('Set-Cookie')[0]).toContain('express:sess=;');
     });
 });
+
+describe('CurrentUser tests', () => {
+    it('should have details with the current user', async () => {
+        // When singing up the user is also signed in
+        const response = await request(app)
+            .post(`${baseURI}/signup`)
+            .send({
+                email,
+                password
+            })
+            .expect(201);
+
+        const cookie = response.get('Set-Cookie');
+        expect(cookie).toBeDefined();
+        expect(cookie[0]).not.toContain('express:sess=;');
+
+        const currentUserResponse = await request(app)
+            .get(`${baseURI}/currentuser`)
+            .set('Cookie', cookie)
+            .send()
+            .expect(200);
+
+        const currentUser = currentUserResponse.body.currentUser;
+        
+        expect(currentUser.email).toEqual(email);
+        expect(currentUser.id).toBeDefined();
+    });
+});
