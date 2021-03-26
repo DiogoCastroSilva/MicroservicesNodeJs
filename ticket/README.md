@@ -72,7 +72,7 @@ Will represent credit card payments. Cancels orders if payment fails, completes 
 
 This application is built using the following architecture:
 
-#### Client
+#### [Client](client/)
 
 The front-end application is created using NextJs (Server side rendering).
 

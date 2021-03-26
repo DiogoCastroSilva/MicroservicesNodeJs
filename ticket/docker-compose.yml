@@ -3,11 +3,19 @@ services:
   auth:
     build: ./auth
     ports:
-      - '3000:3000'
+      - '4000:4000'
     depends_on:
       - mongodb
     env_file:
     - ./auth/prod.env
+
+  client:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./usr/src/client:/base
+      - ./usr/src/client/node_modules:/base/node_modules
 
   mongodb:
     image: mongo

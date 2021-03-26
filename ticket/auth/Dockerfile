@@ -21,6 +21,6 @@ RUN npm install --production
 
 COPY --from=builder ./usr/src/auth/build ./build
 
-EXPOSE 3000
+EXPOSE 4000
 
 CMD ["npm", "start"]
