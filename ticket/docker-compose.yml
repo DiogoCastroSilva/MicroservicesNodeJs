@@ -8,36 +8,38 @@ services:
     depends_on:
       - auth
       - client
-    links:
-      - auth
-      - client
+      - mongodb
+    networks:
+      - app-network
 
   auth:
     container_name: auth-service
     build: ./auth
-    ports:
-      - '4000:4000'
+    expose:
+      - 4000
     depends_on:
       - mongodb
     env_file:
     - ./auth/prod.env
+    networks:
+      - app-network
 
   client:
     container_name: client
     build: ./client
-    ports:
-      - '3000:3000'
+    expose:
+      - 3000
+    networks:
+      - app-network
 
   mongodb:
     image: mongo
     container_name: mongodb
-    ports:
-      - '27017:27017'
+    expose:
+      - 27017
+    networks:
+      - app-network
 
-  mongo-express:
-    image: mongo-express
-    container_name: mongo_express
-    depends_on:
-      - mongodb
-    ports:
-      - '8081:8081'
+networks:
+  app-network:
+    driver: bridge

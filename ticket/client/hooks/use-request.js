@@ -18,6 +18,7 @@ export default ({ url, method, body, onSuccess }) => {
 
             return response.data;
         } catch (err) {
+            if (err?.length > 0)
             setErrors(
                 <div className="alert alert-danger">
                     <h4>Ooops....</h4>
