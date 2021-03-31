@@ -1,8 +1,10 @@
 import axios from "axios";
 
 const LandingPage = ({ currentUser }) => {
+    const text = currentUser ? 'You are signed in' : 'You are not signed in';
+
     return (
-        <h1>Landing Page {currentUser}</h1>
+        <h1>{text}</h1>
     );
 };
 

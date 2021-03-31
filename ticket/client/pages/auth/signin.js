@@ -12,7 +12,7 @@ export default () => {
     const router = useRouter();
 
     const { doRequest, errors } = useRequest({
-        url: 'http://localhost/api/users/signup',
+        url: 'http://localhost/api/users/signin',
         method: 'post',
         onSuccess: () => router.push('/')
     });
@@ -25,7 +25,7 @@ export default () => {
 
     return (
         <AuthForm
-            formName='Sign Up'
+            formName='Sign In'
             onFormSubmit={onSubmit}
             errors={errors}
         />
