@@ -1,6 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
+// Components
+import Header from '../components/header';
 
-export default ({ Component, pageProps }) => {
-    return <Component {...pageProps} />
+
+const AppComponent = ({ Component, pageProps }) => {
+    return (
+        <div>
+            <Header />
+            <Component {...pageProps} />
+        </div>
+    );
 };
+
+export default AppComponent;

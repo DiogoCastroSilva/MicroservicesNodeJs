@@ -19,9 +19,7 @@ app.set('trust proxy', true);
 app.use(json());
 app.use(cookieSession({
     // Disable encryption
-    signed: false,
-    // cookie is only to be sent over HTTPS
-    secure: process.env.NODE_ENV === 'production'
+    signed: false
 }));
 
 // Routes

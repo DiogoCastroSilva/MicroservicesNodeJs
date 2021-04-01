@@ -9,8 +9,6 @@ services:
       - auth
       - client
       - mongodb
-    networks:
-      - app-network
 
   auth:
     container_name: auth-service
@@ -21,25 +19,17 @@ services:
       - mongodb
     env_file:
     - ./auth/prod.env
-    networks:
-      - app-network
 
   client:
     container_name: client
     build: ./client
     expose:
       - 3000
-    networks:
-      - app-network
+    environment:
+      - API_AUTH=auth
 
   mongodb:
     image: mongo
     container_name: mongodb
     expose:
       - 27017
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
